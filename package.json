@@ -7,8 +7,8 @@
     "copy": "node copy.mjs",
     "clean": "del-cli dist/",
     "img": "node imagemin.js",
-    "img:w": "onchange src/assets/img/ -- node imagemin.js {{changed}}",
-    "svg": "svg-sprite -C config.json ./src/assets/svg/*svg",
+    "img:w": "onchange src/img/ -- node imagemin.js {{changed}}",
+    "svg": "svg-sprite -C svg.config.json ./src/svg/*svg",
     "build": "npm-run-all -p clean img svg"
   },
   "devDependencies": {
