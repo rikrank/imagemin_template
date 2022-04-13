@@ -1,0 +1,24 @@
+{
+  "name": "webpack_sample",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "copy": "node copy.mjs",
+    "clean": "del-cli dist/",
+    "img": "node imagemin.js",
+    "img:w": "onchange src/assets/img/ -- node imagemin.js {{changed}}"
+  },
+  "devDependencies": {
+    "del-cli": "^4.0.1",
+    "imagemin-gifsicle": "^7.0.0",
+    "imagemin-keep-folder": "^5.3.2",
+    "imagemin-mozjpeg": "9.0.0",
+    "imagemin-pngquant": "^9.0.2",
+    "imagemin-svgo": "9.0.0",
+    "imagemin-webp": "6.0.0",
+    "npm-run-all": "^4.1.5",
+    "onchange": "^7.1.0",
+    "path": "^0.12.7"
+  }
+}
