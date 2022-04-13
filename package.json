@@ -7,7 +7,9 @@
     "copy": "node copy.mjs",
     "clean": "del-cli dist/",
     "img": "node imagemin.js",
-    "img:w": "onchange src/assets/img/ -- node imagemin.js {{changed}}"
+    "img:w": "onchange src/assets/img/ -- node imagemin.js {{changed}}",
+    "svg": "svg-sprite -C config.json ./src/assets/svg/*svg",
+    "build": "npm-run-all -p clean img svg"
   },
   "devDependencies": {
     "del-cli": "^4.0.1",
@@ -19,6 +21,7 @@
     "imagemin-webp": "6.0.0",
     "npm-run-all": "^4.1.5",
     "onchange": "^7.1.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "svg-sprite": "^1.5.4"
   }
 }

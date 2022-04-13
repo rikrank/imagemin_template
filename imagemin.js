@@ -5,15 +5,15 @@ const imageminMozjpeg = require("imagemin-mozjpeg");
 const imageminGifsicle = require("imagemin-gifsicle");
 const imageminSvgo = require("imagemin-svgo");
 
-imagemin(["./src/img/**/*"], {
+imagemin(["./src/assets/img/**/*"], {
   plugins: [imageminMozjpeg({ quality: 80 }), imageminPngquant(), imageminGifsicle(), imageminSvgo()],
   replaceOutputDir: (output) => {
-    return output.replace(/img\//, "../dist/img/");
+    return output.replace(/img\//, "../../dist/assets/img/");
   },
 })
   .then(() => {
     // dist配下の画像ファイルをwebp変換
-    imagemin(["./dist/img/**/*"], {
+    imagemin(["./dist/assets/img/**/*"], {
       use: [imageminWebp()],
     });
   })
