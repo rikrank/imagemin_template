@@ -1,5 +1,5 @@
 {
-  "dest": "./dist/assets/svg",
+  "dest": "./dist/svg",
   "mode": {
     "symbol": {
       "dest": ".",
