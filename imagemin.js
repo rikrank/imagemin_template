@@ -1,5 +1,4 @@
 const fs = require("fs");
-const writeFileSync = require("fs");
 const imagemin = require("imagemin-keep-folder");
 const imageminPngquant = require("imagemin-pngquant");
 const imageminWebp = require("imagemin-webp");
@@ -10,6 +9,8 @@ const imageminSvgo = require("imagemin-svgo");
 const srcDir = "./src/img";
 const outDir = "./dist/img";
 
+const targetDir = fs.existsSync(outDir) ? outDir : srcDir;
+
 // dist配下の画像ファイルをwebp変換
 function convertWebp(targetFiles) {
   imagemin([targetFiles], {
@@ -17,7 +18,7 @@ function convertWebp(targetFiles) {
   });
 }
 
-imagemin([`${srcDir}/**/*`], {
+imagemin([`${targetDir}/**/*`], {
   plugins: [
     imageminMozjpeg({ quality: 80 }),
     imageminPngquant(),

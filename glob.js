@@ -2,9 +2,10 @@ const fs = require("fs");
 const sharp = require("sharp");
 const glob = require("glob");
 
-const targetResize = Number(process.argv[2]); // コマンドの引数が入る
+// const targetResize = Number(process.env.npm_package_config_width);
+const targetResize = Number(process.argv[2]); //// コマンドの第一引数が入る
 
-const allowExtensions = ".(jpeg|jpg|png|bmp|gif)$";
+const allowExtensions = ".(jpeg|jpg|JPG|png|bmp|gif)$";
 const pattern = "./src/**/*";
 
 try {
@@ -37,7 +38,6 @@ try {
           );
 
           const outPutPath = outPutPathArr.join("");
-
           if (!fs.existsSync(outPutPath))
             fs.mkdirSync(outPutPath, { recursive: true });
           sharp(file)

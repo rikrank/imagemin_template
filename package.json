@@ -6,10 +6,9 @@
   "scripts": {
     "copy": "node copy.mjs",
     "clean": "del-cli dist/",
-    "img": "node imagemin.js",
-    "img:w": "onchange src/img/ -- node imagemin.js {{changed}}",
+    "resize": "node glob.js $npm_config_width",
+    "min": "node imagemin.js",
     "svg": "svg-sprite -C svg.config.json ./src/svg/*svg",
-    "glob": "node glob.js $npm_config_width",
     "build": "npm-run-all -p clean img svg"
   },
   "devDependencies": {
