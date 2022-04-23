@@ -6,23 +6,25 @@
   "scripts": {
     "copy": "node copy.mjs",
     "clean": "del-cli dist/",
-    "img": "node imagemin.js $npm_config_width",
-    "img:w": "onchange src/img/ -- node imagemin.js {{changed}}",
+    "resize": "node glob.js $npm_config_width",
+    "min": "node imagemin.js",
     "svg": "svg-sprite -C svg.config.json ./src/svg/*svg",
     "build": "npm-run-all -p clean img svg"
   },
   "devDependencies": {
     "del-cli": "^4.0.1",
     "fs": "^0.0.1-security",
+    "glob": "^8.0.1",
     "imagemin-gifsicle": "^7.0.0",
     "imagemin-keep-folder": "^5.3.2",
     "imagemin-mozjpeg": "9.0.0",
     "imagemin-pngquant": "^9.0.2",
     "imagemin-svgo": "9.0.0",
     "imagemin-webp": "6.0.0",
+    "mkdir": "^0.0.2",
     "npm-run-all": "^4.1.5",
     "onchange": "^7.1.0",
-    "sharp": "^0.27.0",
+    "sharp": "^0.30.4",
     "svg-sprite": "^1.5.4"
   }
 }
