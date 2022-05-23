@@ -9,7 +9,9 @@
     "resize": "node glob.js $npm_config_width",
     "min": "node imagemin.js",
     "svg": "svg-sprite -C svg.config.json ./src/svg/*svg",
-    "build": "npm-run-all -p clean clean min svg"
+    "build": "npm-run-all -p clean min svg",
+    "watch": "onchange './src/**/*' -- yarn build",
+    "build:w": "npm-run-all -s build watch"
   },
   "devDependencies": {
     "del-cli": "^4.0.1",

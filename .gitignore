@@ -2,3 +2,4 @@
 /yarn.lock
 *.html
 *.code-workspace
+/dist
