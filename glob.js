@@ -5,41 +5,43 @@ const glob = require("glob");
 // const targetResize = Number(process.env.npm_package_config_width);
 const targetResize = Number(process.argv[2]); //// コマンドの第一引数が入る
 
-const allowExtensions = ".(jpeg|jpg|JPG|png|bmp|gif)$";
-const pattern = "./src/**/*";
+const allowExtensions = ".(jpeg|jpg|JPG|png|webp|bmp|gif)$";
+const pattern = "./dist/img/**/*";
 
-try {
-  if (targetResize) {
-    glob(pattern, (err, files) => {
-      if (err) {
-        console.log(err);
-      }
-      const allFilesArr = files.map((file) => {
-        const file_type = file.split(".").pop();
-        if (allowExtensions.includes(file_type)) return file;
-      });
+if (targetResize) {
+  console.log(`サイズ指定：アリ ▶︎ 幅${targetResize}pxでリサイズします。`)
+  glob(pattern, (err, files) => {
+    if (err) {
+      console.log(err);
+    }
+    const allFilesArr = files.map((file) => {
 
-      const filterdFiles = allFilesArr.filter((file) => file);
+      const file_type = file.split(".").pop();
+      if (allowExtensions.includes(file_type)) return file;
+    });
 
-      filterdFiles.forEach((file) => {
-        if (fs.statSync(file).isFile()) {
-          // ファイル名だけを抽出
-          const replacedPath = file.replace("src", "dist");
-          const replacedPathArr = replacedPath.split("/");
+    const filterdFiles = allFilesArr.filter((file) => file);
 
-          const outPutPathArr = replacedPathArr.reduce(
-            (previousValue, currentValue, index) => {
-              if (index !== replacedPathArr.length - 1) {
-                previousValue.push(currentValue + "/");
-              }
-              return previousValue;
-            },
-            []
-          );
+    filterdFiles.forEach((file) => {
+      if (fs.statSync(file).isFile()) {
 
-          const outPutPath = outPutPathArr.join("");
-          if (!fs.existsSync(outPutPath))
-            fs.mkdirSync(outPutPath, { recursive: true });
+        // ファイル名だけを抽出
+        const replacedPath = file.replace("dist/img", "dist/img/resize");
+        const replacedPathArr = replacedPath.split("/");
+
+        const outPutPathArr = replacedPathArr.reduce(
+          (previousValue, currentValue, index) => {
+            if (index !== replacedPathArr.length - 1) {
+              previousValue.push(currentValue + "/");
+            }
+            return previousValue;
+          },
+          []
+        );
+
+        const outPutPath = outPutPathArr.join("");
+        if (!fs.existsSync(outPutPath)) {
+          fs.mkdirSync(outPutPath, { recursive: true });
           sharp(file)
             .resize(targetResize)
             .toFile(`${replacedPath}`, (err, info) => {
@@ -47,11 +49,9 @@ try {
               console.log(info);
             });
         }
-      });
+      }
     });
-  } else {
-    throw new Error("サイズが指定されていません");
-  }
-} catch (error) {
-  console.error(error);
+  });
+} else {
+  console.log('サイズ指定：ナシ ▶︎ リサイズ処理をスキップします。')
 }

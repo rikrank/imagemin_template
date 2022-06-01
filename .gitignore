@@ -3,3 +3,4 @@
 *.html
 *.code-workspace
 /dist
+yarn-error.log

@@ -6,10 +6,10 @@
   "scripts": {
     "copy": "node copy.mjs",
     "clean": "del-cli dist/",
-    "resize": "node glob.js $npm_config_width",
-    "min": "node imagemin.js",
     "svg": "svg-sprite -C svg.config.json ./src/svg/*svg",
-    "build": "npm-run-all -p clean min svg",
+    "min": "yarn clean && node imagemin.js",
+    "resize": "yarn min && node glob.js $npm_config_width",
+    "build": "yarn clean && yarn min && yarn svg && yarn resize",
     "watch": "onchange './src/**/*' -- yarn build",
     "build:w": "npm-run-all -s build watch"
   },
