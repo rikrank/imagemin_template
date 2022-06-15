@@ -4,3 +4,4 @@
 *.code-workspace
 /dist
 yarn-error.log
+/src/**/*

@@ -14,8 +14,8 @@ if (targetResize) {
     if (err) {
       console.log(err);
     }
-    const allFilesArr = files.map((file) => {
 
+    const allFilesArr = files.map((file) => {
       const file_type = file.split(".").pop();
       if (allowExtensions.includes(file_type)) return file;
     });
@@ -40,15 +40,13 @@ if (targetResize) {
         );
 
         const outPutPath = outPutPathArr.join("");
-        if (!fs.existsSync(outPutPath)) {
-          fs.mkdirSync(outPutPath, { recursive: true });
-          sharp(file)
-            .resize(targetResize)
-            .toFile(`${replacedPath}`, (err, info) => {
-              if (err) throw err;
-              console.log(info);
-            });
-        }
+        fs.mkdirSync(outPutPath, { recursive: true });
+        sharp(file)
+          .resize(targetResize)
+          .toFile(`${replacedPath}`, (err, info) => {
+            if (err) throw err;
+            console.log(info);
+          });
       }
     });
   });
