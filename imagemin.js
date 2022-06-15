@@ -1,27 +1,22 @@
-const fs = require("fs");
 const imagemin = require("imagemin-keep-folder");
 const imageminPngquant = require("imagemin-pngquant");
 const imageminWebp = require("imagemin-webp");
+const imageminSvgo = require("imagemin-svgo");
 const imageminMozjpeg = require("imagemin-mozjpeg");
 const imageminGifsicle = require("imagemin-gifsicle");
-const imageminSvgo = require("imagemin-svgo");
 
-const srcDir = "./src/img";
-const outDir = "./dist/img";
+const srcDir = "./src/img/**/*.{jpg,png,gif,svg}";
+const outDir = "./dist/img/**/*";
 
-const targetDir = fs.existsSync(outDir) ? outDir : srcDir;
-
-// dist配下の画像ファイルをwebp変換
-function convertWebp(targetFiles) {
+const convertWebp = (targetFiles) => {
   imagemin([targetFiles], {
-    destination: 'build/images',
-    plugins: [imageminWebp({ quality: 50 })],
+    use: [imageminWebp({ quality: 50 })],
   });
-}
+};
 
-imagemin([`${targetDir}/**/*`], {
+imagemin([srcDir], {
   plugins: [
-    imageminMozjpeg({ quality: 80 }),
+    imageminMozjpeg(),
     imageminPngquant(),
     imageminGifsicle(),
     imageminSvgo(),
@@ -30,6 +25,7 @@ imagemin([`${targetDir}/**/*`], {
     return output.replace(/img\//, "../dist/img/");
   },
 }).then(() => {
-  convertWebp(`${outDir}/**/*`);
+  convertWebp(outDir);
   console.log("Images optimized!");
 });
+
