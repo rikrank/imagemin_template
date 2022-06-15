@@ -14,7 +14,8 @@ const targetDir = fs.existsSync(outDir) ? outDir : srcDir;
 // dist配下の画像ファイルをwebp変換
 function convertWebp(targetFiles) {
   imagemin([targetFiles], {
-    use: [imageminWebp()],
+    destination: 'build/images',
+    plugins: [imageminWebp({ quality: 50 })],
   });
 }
 
